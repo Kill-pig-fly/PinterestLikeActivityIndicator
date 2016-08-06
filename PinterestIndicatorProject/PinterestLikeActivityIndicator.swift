@@ -11,7 +11,7 @@ import UIKit
 class PinterestLikeActivityIndicator: UIView {
     
     let circleRadius: CGFloat = 18
-    let circleSize: CGFloat = 6.0
+    let innerCircleRadius: CGFloat = 6.0
     
     lazy var containerSquare: UIView = {
         let square = UIView()
@@ -21,51 +21,36 @@ class PinterestLikeActivityIndicator: UIView {
     }()
     
     lazy var topLeftCircle: UIView = {
-        let circle = UIView()
-        circle.translatesAutoresizingMaskIntoConstraints = false
-        circle.backgroundColor = .whiteColor()
-        circle.layer.cornerRadius = self.circleSize / 2
+        let circle = self.circleBuilder(self.innerCircleRadius)
         return circle
     }()
     
     lazy var topRightCircle: UIView = {
-        let circle = UIView()
-        circle.translatesAutoresizingMaskIntoConstraints = false
-        circle.backgroundColor = .whiteColor()
-        circle.layer.cornerRadius = self.circleSize / 2
+        let circle = self.circleBuilder(self.innerCircleRadius)
         return circle
     }()
     
     lazy var bottomLeftCircle: UIView = {
-        let circle = UIView()
-        circle.translatesAutoresizingMaskIntoConstraints = false
-        circle.backgroundColor = .whiteColor()
-        circle.layer.cornerRadius = self.circleSize / 2
+        let circle = self.circleBuilder(self.innerCircleRadius)
         return circle
     }()
     
     lazy var bottomRightCircle: UIView = {
-        let circle = UIView()
-        circle.translatesAutoresizingMaskIntoConstraints = false
-        circle.backgroundColor = .whiteColor()
-        circle.layer.cornerRadius = self.circleSize / 2
+        let circle = self.circleBuilder(self.innerCircleRadius)
         return circle
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .lightGrayColor()
+        backgroundColor = .lightGrayColor()
+        layer.cornerRadius = bounds.size.width/2
         setupViews()
         rotateView()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.cornerRadius = bounds.size.width/2
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        
     }
     
     private func rotateView() {
@@ -76,6 +61,13 @@ class PinterestLikeActivityIndicator: UIView {
         }
     }
     
+    private func circleBuilder(radius: CGFloat) -> UIView {
+        let circle = UIView()
+        circle.translatesAutoresizingMaskIntoConstraints = false
+        circle.backgroundColor = .whiteColor()
+        circle.layer.cornerRadius = radius / 2
+        return circle
+    }
     
     private func setupViews() {
         self.containerSquare.addSubview(topLeftCircle)
@@ -121,7 +113,7 @@ class PinterestLikeActivityIndicator: UIView {
             toItem: nil,
             attribute: .Width,
             multiplier: 1.0,
-            constant: circleSize))
+            constant: innerCircleRadius))
         
         self.addConstraint(NSLayoutConstraint(item: topLeftCircle,
             attribute: .Height ,
@@ -129,7 +121,7 @@ class PinterestLikeActivityIndicator: UIView {
             toItem: nil,
             attribute: .Height,
             multiplier: 1.0,
-            constant: circleSize))
+            constant: innerCircleRadius))
         
         self.addConstraint(NSLayoutConstraint(item: topLeftCircle,
             attribute: .Left ,
@@ -154,7 +146,7 @@ class PinterestLikeActivityIndicator: UIView {
             toItem: nil,
             attribute: .Width,
             multiplier: 1.0,
-            constant: circleSize))
+            constant: innerCircleRadius))
         
         self.addConstraint(NSLayoutConstraint(item: topRightCircle,
             attribute: .Height ,
@@ -162,7 +154,7 @@ class PinterestLikeActivityIndicator: UIView {
             toItem: nil,
             attribute: .Height,
             multiplier: 1.0,
-            constant: circleSize))
+            constant: innerCircleRadius))
         
         self.addConstraint(NSLayoutConstraint(item: topRightCircle,
             attribute: .Right ,
@@ -187,7 +179,7 @@ class PinterestLikeActivityIndicator: UIView {
             toItem: nil,
             attribute: .Width,
             multiplier: 1.0,
-            constant: circleSize))
+            constant: innerCircleRadius))
         
         self.addConstraint(NSLayoutConstraint(item: bottomLeftCircle,
             attribute: .Height ,
@@ -195,7 +187,7 @@ class PinterestLikeActivityIndicator: UIView {
             toItem: nil,
             attribute: .Height,
             multiplier: 1.0,
-            constant: circleSize))
+            constant: innerCircleRadius))
         
         self.addConstraint(NSLayoutConstraint(item: bottomLeftCircle,
             attribute: .Left ,
@@ -220,7 +212,7 @@ class PinterestLikeActivityIndicator: UIView {
             toItem: nil,
             attribute: .Width,
             multiplier: 1.0,
-            constant: circleSize))
+            constant: innerCircleRadius))
         
         self.addConstraint(NSLayoutConstraint(item: bottomRightCircle,
             attribute: .Height ,
@@ -228,7 +220,7 @@ class PinterestLikeActivityIndicator: UIView {
             toItem: nil,
             attribute: .Height,
             multiplier: 1.0,
-            constant: circleSize))
+            constant: innerCircleRadius))
         
         self.addConstraint(NSLayoutConstraint(item: bottomRightCircle,
             attribute: .Right ,
@@ -245,6 +237,10 @@ class PinterestLikeActivityIndicator: UIView {
             attribute: .Bottom,
             multiplier: 1.0,
             constant: 0))
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
